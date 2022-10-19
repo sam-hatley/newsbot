@@ -2,6 +2,7 @@ import tweepy
 import re
 import requests
 from bs4 import BeautifulSoup
+import time
 import config
 
 auth = tweepy.OAuthHandler(config.api_key, config.api_secret)
@@ -14,17 +15,27 @@ tweets = client.search_recent_tweets(query='from:harrowonline',
                                      max_results=10)
 
 for tweet in tweets.data:
+    # Pull the time, so we can see if it's a recent enough update later
     datetime = tweet.created_at
     text = tweet.text
+
+    # Search for a URL, if there is one, return the first instance
     url = re.findall('(?P<url>https?://[^\s]+)', text)
     if url != []:
         url = url[0]
         get_url = requests.get(url)
         get_text = get_url.text
         soup = BeautifulSoup(get_text, "html.parser")
-        title = soup.find_next('h1', 'class:tdb-title-text')
-        print(title)
 
+        # Links to twitter videos cause a crash, so we'll try instead
+        try:
+            title = soup.select('h1.tdb-title-text')[0].text.strip()
+        except:
+            continue
+
+        print(title)
+        print(url)
+        print(datetime)
 
 # ['__abstractmethods__', '__class__', '__contains__', '__delattr__', '__dir__', '__doc__', '__eq__', '__format__',
 # '__ge__', '__getattr__', '__getattribute__', '__getitem__', '__gt__', '__hash__', '__init__', '__init_subclass__',
