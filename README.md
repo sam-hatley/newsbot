@@ -17,7 +17,7 @@ If you can't tell, it's beyond frustrating, and I frequently miss relatively imp
 
 You can make a bot.
 
-I've set up this Twitter bot to run every fifteen minutes on a home server. It checks for new tweets, goes through any URL and pulls out the headline, than retweets Harrow Online's tweets with text straight from the headline. It's written in Python and uses [tweepy](https://www.tweepy.org/) to interact with the Twitter API and [BeautifulSoup](https://beautiful-soup-4.readthedocs.io/en/latest/) to scrape the headlines.
+I've set up this Twitter bot to run every fifteen minutes on a home server. It checks for new tweets, goes through any URL and pulls out the headline, then retweets Harrow Online's tweets with text straight from the headline. It's written in Python, uses [tweepy](https://www.tweepy.org/) to interact with the Twitter API, and [BeautifulSoup](https://beautiful-soup-4.readthedocs.io/en/latest/) to scrape the headlines.
 
 Find the bot on [Twitter](https://twitter.com/harrowtitlebot): if you're living in Harrow, it might be of use to you! If not, feel free to pull the code and set it up for your own use. 
 
