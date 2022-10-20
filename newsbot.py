@@ -62,11 +62,15 @@ def get_tweets(h=1, m=0, user=153798942):
     return titles, urls
 
 
+# Combines text and link, posts to twitter
 def new_tweet(text, link):
-    print(text, link)
+    contents = text + " " + link
+    client.create_tweet(text=contents)
 
 
-(contents, links) = get_tweets(48)
+# We'll run this every fifteen minutes. It'll pull any tweets from that
+# time period and post them in order. If there are none, it will exit.
+(contents, links) = get_tweets(m=15)
 
 if not contents:
     exit()
