@@ -13,7 +13,7 @@ Less thankfully, whoever manages this account doesn't do a great job writing the
 | Breaking news from #Harrow Town Centre this morning…              | Station Road in Harrow forced to close due to burst pipe                             |
 | News from South #Harrow last night…                               | Man, 18, arrested for possession of an offensive weapon in South Harrow              |
 
-If you can't tell, it's beyond frustrating, and I frequently miss relatively important news because of these tweets. What can you do?
+If you can't tell, it's beyond frustrating, and I frequently miss relatively important news because of these tweets. But what can you do?
 
 You can make a bot.
 
