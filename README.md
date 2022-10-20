@@ -1,4 +1,4 @@
-# A Bot for a terrible Twitter Newsfeed
+# The Harrow Twitter Newsbot
 
 Like many people, I live in a city district: it's quite easy to get news on what's happening in the city at large, but there are few options when I want to keep abreast of what's happening in my local area. Thankfully, my local area has a news organization that's quite active on Twitter. 
 
