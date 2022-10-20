@@ -1,47 +1,64 @@
 import tweepy
+from datetime import datetime, timedelta
 import re
 import requests
 from bs4 import BeautifulSoup
-import time
 import config
 
+# Authorisation and login
 auth = tweepy.OAuthHandler(config.api_key, config.api_secret)
 auth.set_access_token(config.access_token, config.access_secret)
-
 client = tweepy.Client(bearer_token=config.bearer_token)
 
-tweets = client.search_recent_tweets(query='from:harrowonline',
-                                     tweet_fields=['context_annotations', 'created_at'],
-                                     max_results=10)
+# Get current time and define the range to search
+current_date = datetime.now()
 
-for tweet in tweets.data:
-    # Pull the time, so we can see if it's a recent enough update later
-    datetime = tweet.created_at
-    text = tweet.text
 
-    # Search for a URL, if there is one, return the first instance
-    url = re.findall('(?P<url>https?://[^\s]+)', text)
-    if url != []:
-        url = url[0]
-        get_url = requests.get(url)
-        get_text = get_url.text
-        soup = BeautifulSoup(get_text, "html.parser")
+# Function to retrieve tweets
+def get_tweets(h=1, m=0, user=153798942):
+    titles = []
+    urls = []
 
-        # Links to twitter videos cause a crash, so we'll try instead
-        try:
-            title = soup.select('h1.tdb-title-text')[0].text.strip()
-        except:
-            continue
+    # Use the input to define number of hours to search from
+    time_range = current_date - timedelta(hours=h, minutes=m)
 
-        print(title)
-        print(url)
-        print(datetime)
+    # The actual query: getting tweets from harrowonline within our predefined
+    # time range. Because this query is so specific, we don't really need other
+    # filters or information.
+    tweets = client.get_users_tweets(id=user,
+                                     start_time=time_range,
+                                     exclude='retweets')
 
-# ['__abstractmethods__', '__class__', '__contains__', '__delattr__', '__dir__', '__doc__', '__eq__', '__format__',
-# '__ge__', '__getattr__', '__getattribute__', '__getitem__', '__gt__', '__hash__', '__init__', '__init_subclass__',
-# '__iter__', '__le__', '__len__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__',
-# '__repr__', '__reversed__', '__setattr__', '__sizeof__', '__slots__', '__str__', '__subclasshook__', '_abc_impl',
-# 'attachments', 'author_id', 'context_annotations', 'conversation_id', 'created_at', 'data', 'entities', 'geo',
-# 'get', 'id', 'in_reply_to_user_id', 'items', 'keys', 'lang', 'non_public_metrics', 'organic_metrics',
-# 'possibly_sensitive', 'promoted_metrics', 'public_metrics', 'referenced_tweets', 'reply_settings', 'source',
-# 'text', 'values', 'withheld']
+    # If there are no tweets within time period, exit
+    if tweets.data is None:
+        exit()
+
+    # Iterate through each tweet
+    for tweet in tweets.data:
+        text = tweet.text
+
+        # Search for a URL, if there is one, return the first instance
+        url = re.findall('(?P<url>https?://[^\s]+)', text)
+        if url != []:
+            url = url[0]
+            get_url = requests.get(url)
+            get_text = get_url.text
+            soup = BeautifulSoup(get_text, "html.parser")
+
+            # Extract the header from the linked article.
+            # Links leading back to twitter cause issues, so we "try" instead
+            try:
+                title = soup.select('h1.tdb-title-text')[0].text.strip()
+            except:
+                continue
+
+            # Append these values to a list
+            titles.append(title)
+            urls.append(url)
+
+    return titles, urls
+
+
+(titles, urls) = get_tweets(24, 0)
+
+print(titles)
