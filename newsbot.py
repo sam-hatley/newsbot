@@ -8,11 +8,14 @@ import config
 # Authorisation and login
 auth = tweepy.OAuthHandler(config.api_key, config.api_secret)
 auth.set_access_token(config.access_token, config.access_secret)
-client = tweepy.Client(bearer_token=config.bearer_token)
+client = tweepy.Client(bearer_token=config.bearer_token,
+                       consumer_key=config.api_key,
+                       consumer_secret=config.api_secret,
+                       access_token=config.access_token,
+                       access_token_secret=config.access_secret)
 
 # Get current time and define the range to search
 current_date = datetime.now()
-
 
 # Function to retrieve tweets
 def get_tweets(h=1, m=0, user=153798942):
@@ -59,6 +62,17 @@ def get_tweets(h=1, m=0, user=153798942):
     return titles, urls
 
 
-(titles, urls) = get_tweets(24, 0)
+def new_tweet(text, link):
+    print(text, link)
 
-print(titles)
+
+(contents, links) = get_tweets(48)
+
+if not contents:
+    exit()
+
+i = 0
+for link in links:
+    new_tweet(contents[i], link)
+    i += 1
+
