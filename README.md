@@ -1,6 +1,6 @@
 # The Harrow Twitter Newsbot
 
-Like many people, I live in a city district: it's quite easy to get news on what's happening in the city at large, but there are few options when I want to keep abreast of what's happening in my local area. Thankfully, my local area has a news organization that's quite active on Twitter. 
+I live in a district of a large city: it's quite easy to get news on what's happening in the city at large, but there are few options when I want to keep abreast of what's happening in my local area. Thankfully, my local area has a news organization that's quite active on Twitter. 
 
 Less thankfully, whoever manages this account doesn't do a great job writing the actual tweet:
 
