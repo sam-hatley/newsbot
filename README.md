@@ -6,7 +6,8 @@ Less thankfully, whoever manages this account doesn't do a great job writing the
 
 | Tweet                                                             | Headline                                                                             |
 |-------------------------------------------------------------------|--------------------------------------------------------------------------------------|
-| #Barnet                                                           | Man in his 80s dies after collision in Tesco car park in Barnet                      |
+| There was an incident in #Stanmore last night…                    | Stolen Range Rover collides with multiple cars and garden wall in Stanmore           |
+| Awful news from #Ruislip…                                         | Police appeal after woman ‘dragged into a bush’ and strangled in Ruislip             |
 | #Harrow #News                                                     | Police investigating assault near Harrow and Wealdstone station                      |
 | A victim was left in a critical condition… #Edgware #Harrow #News | Police release images after assault in Edgware that left man in a critical condition |
 | All the latest #Harrow news…                                      | Affinity Water apologise after leaking pipe reported in Wealdstone                   |
