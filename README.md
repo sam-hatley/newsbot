@@ -1,5 +1,7 @@
 # The Harrow Twitter Newsbot
 
+**Important Note:** Following the recent changes to Twitter's API, this bot no longer functions without paid access. I'm not going to pay upwards of $100/mo to essentially retreet news articles, so the bot is down until I have the time to re-tool this as a scraper that pushes updates to Mastodon.
+
 I live in a district of a large city: it's quite easy to get news on what's happening in the city at large, but there are few options when I want to keep abreast of what's happening in my local area. Thankfully, my local area has a news organization that's quite active on Twitter. 
 
 Less thankfully, whoever manages this account doesn't do a great job writing the actual tweet:
