@@ -1,6 +1,6 @@
 ## Personal
 *_local*
-.terraform*
+*.terraform*
 
 ## VScode
 .vscode/*
