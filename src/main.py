@@ -7,7 +7,7 @@ from time import sleep
 from random import randint
 import requests
 import json
-import os
+from os import getenv
 
 ## Utilities
 def random_header() -> str:
@@ -159,10 +159,10 @@ def harrow_online_post(access_token,
     return articles
 
 
-def main():
+def main(data=None, context=None, **kwargs):
     # Setup
-    access_token = os.getenv("MASTODON_TOKEN")
-    user_id_env = os.getenv("MASTODON_ID")
+    access_token = getenv("MASTODON_TOKEN")
+    user_id_env = getenv("MASTODON_ID")
     
     if not access_token or not user_id_env:
         raise ValueError("Missing Mastodon access token or user ID in env")
