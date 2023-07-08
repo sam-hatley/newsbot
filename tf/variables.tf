@@ -1,4 +1,4 @@
-variable "project" {
+variable "project_name" {
   description = "Project Name"
   default     = "newsbot-392213"
 }

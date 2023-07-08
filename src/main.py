@@ -34,7 +34,7 @@ def random_header() -> str:
 def get_mastodon_id(mastodon_address:str) -> str:
     """
     A quick bit of code to fetch a mastodon user's id.
-    Usage: get_mastodon_id(mastodon_address='@username@mastodon.social') or
+    Usage: get_mastodon_id(mastodon_address='@username@instance.tld') or
     get_mastodon_id(mastodon_address='123456789123456789')
     """
     
@@ -162,7 +162,7 @@ def harrow_online_post(access_token,
 def main():
     # Setup
     access_token = os.getenv("MASTODON_TOKEN")
-    user_id_env = os.getenv("USER_ID")
+    user_id_env = os.getenv("MASTODON_ID")
     
     if not access_token or not user_id_env:
         raise ValueError("Missing Mastodon access token or user ID in env")
