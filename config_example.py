@@ -1,5 +1,0 @@
-api_key = "YOUR_KEY"
-api_secret = "YOUR_SECRET"
-access_token = "YOUR_TOKEN"
-access_secret = "YOUR_SECRET"
-bearer_token = "YOUR_TOKEN"
