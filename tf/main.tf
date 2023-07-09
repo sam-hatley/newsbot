@@ -41,6 +41,11 @@ resource "google_storage_bucket_object" "object" {
 
 
 // Create Cloud Function
+resource "google_pubsub_topic" "topic" {
+  project = var.project
+  name    = "${var.project}-topic"
+}
+
 resource "google_cloudfunctions2_function" "default" {
   name        = "${var.project}-function"
   project     = var.project
@@ -50,10 +55,6 @@ resource "google_cloudfunctions2_function" "default" {
   build_config {
     runtime     = "python311"
     entry_point = "main"
-    environment_variables = {
-      MASTODON_TOKEN = var.mastodon_access_token
-      MASTODON_ID    = var.mastodon_id
-    }
     source {
       storage_source {
         bucket = google_storage_bucket.default.name
@@ -66,7 +67,19 @@ resource "google_cloudfunctions2_function" "default" {
     max_instance_count = 1
     available_memory   = "128Mi"
     timeout_seconds    = 60
+    environment_variables = {
+      MASTODON_TOKEN = var.mastodon_access_token
+      MASTODON_ID    = var.mastodon_id
+    }
   }
+
+  event_trigger {
+    trigger_region = var.region # The trigger must be in the same location as the bucket
+    event_type     = "google.cloud.pubsub.topic.v1.messagePublished"
+    pubsub_topic   = google_pubsub_topic.topic.id
+    retry_policy   = "RETRY_POLICY_RETRY"
+  }
+
 }
 
 output "function_uri" {
@@ -88,9 +101,9 @@ resource "google_cloud_scheduler_job" "job" {
     retry_count = 1
   }
 
-  http_target {
-    http_method = "POST"
-    uri         = google_cloudfunctions2_function.default.service_config[0].uri
-    body        = base64encode("{\"foo\":\"bar\"}")
+  pubsub_target {
+    # topic.id is the topic's full resource name.
+    topic_name = google_pubsub_topic.topic.id
+    data       = base64encode("run")
   }
 }
