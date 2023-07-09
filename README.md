@@ -27,7 +27,7 @@ The infrastructure is managed by Terraform and sits in Google Cloud Platform: th
 Find the bot on [Mastodon](https://mastodon.social/@harrownewsbot): if you're living in Harrow, it might be of use to you! If not, feel free to pull the code and set it up for your own use. 
 
 To do so, you'll need to:
-1. Set up developer permissions with Mastodon and generate your own API keys: I've provided an example config file, you'll just have to rename it ```config.py```. 
+1. Set up an account with Mastodon and generate your own API keys. 
 2. Set up an account, project, and service account (with ownership permissions, unless you actively want to hunt down the permissions required) on GCP, and generate a `.json` API key that will sit within the root directory of the project.
 3. Make any required edits to the [Terraform variables](/tf/variables.tf), including your GCP project details and Mastodon user ID.
-4. Run the Terraform code: fair warning, you will need to enable a fair few APIs that don't immediately relate to the project. This is an issue with Terraform's implementation- you won't be using all of these. This project should comfortably fit within GCP's free tier on all of the resources used.
+4. Run the Terraform code, pasting in your Mastodon access token at the prompt: fair warning, you will need to enable a fair few APIs that don't immediately relate to the project. This is an issue with Terraform's implementation- you won't be using all of these. This project should comfortably fit within GCP's free tier on all of the resources used.
