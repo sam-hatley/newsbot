@@ -96,7 +96,13 @@ def scrape_harrow_online(url='https://harrowonline.org/category/news/') -> list[
 def filter_articles(user_id,
                     access_token,
                     articles,
+                    limit=10,
                     api_base_url='https://mastodon.social') -> list[dict]:
+    """
+    Takes a list of dictionaries of articles with a URL key, and compares them to the last `limit`
+    number of posts by `user_id`. Returns a list of posts that have URLs not within that user's
+    posts.
+    """
 
     mastodon = Mastodon(
         access_token=access_token,
@@ -111,7 +117,7 @@ def filter_articles(user_id,
         id=user_id,
         exclude_replies=True,
         exclude_reblogs=True,
-        limit=10
+        limit=limit
         )
 
     for status in statuses:
@@ -134,6 +140,10 @@ def harrow_online_post(access_token,
                        articles,
                        api_base_url='https://mastodon.social'
                        ) -> list[dict]:
+    """
+    Takes a list of dictionaries of articles with the keys 'category', 'title', and 'url', and
+    posts them to mastodon. Returns articles posted.
+    """
 
     mastodon = Mastodon(
         access_token=access_token,
@@ -159,7 +169,11 @@ def harrow_online_post(access_token,
     return articles
 
 
-def main(data=None, context=None, **kwargs):
+def main(data=None, context=None, **kwargs) -> None:
+    """
+    Main function, calling each of the above functions. Arguments are dummies, as a quirk of
+    Google Cloud Functions means that a pub/sub trigger forces arguments.
+    """
     # Setup
     access_token = getenv("MASTODON_TOKEN")
     user_id_env = getenv("MASTODON_ID")
@@ -179,7 +193,6 @@ def main(data=None, context=None, **kwargs):
     if new_posts:
         harrow_online_post(access_token=access_token,
                            articles=new_posts)
-    
     
 
 if __name__ == "__main__":
