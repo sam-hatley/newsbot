@@ -20,9 +20,9 @@ If you can't tell, it's beyond frustrating, and I frequently miss relatively imp
 
 You can make a bot.
 
-I've set up this  bot to run every fifteen minutes. Scrapes the first page of [Harrow Online](https://harrowonline.org/), pulls out the headline, then 'toots' those headlines. It's written in Python, uses [mastodon.py](https://mastodonpy.readthedocs.io/en/stable/) to interact with the Mastodon API, and [BeautifulSoup](https://beautiful-soup-4.readthedocs.io/en/latest/) to scrape the headlines.
+I've set up this  bot to run every fifteen minutes. It scrapes the first page of [Harrow Online](https://harrowonline.org/), pulls out the top five headlines, then 'toots' those headlines. It's written in Python, uses [mastodon.py](https://mastodonpy.readthedocs.io/en/stable/) to interact with the Mastodon API, and [BeautifulSoup](https://beautiful-soup-4.readthedocs.io/en/latest/) to scrape the headlines.
 
-The infrastructure is managed by Terraform and sits in Google Cloud Platform: the code is sent into a Google Cloud Function, triggered by a Google Cloud Scheduler Pub/Sub event every fifteen minutes. 
+The infrastructure is managed by Terraform and sits within Google Cloud Platform: the code is sent into a Google Cloud Function, which is triggered by a Google Cloud Scheduler Pub/Sub event every fifteen minutes. 
 
 Find the bot on [Mastodon](https://mastodon.social/@harrownewsbot): if you're living in Harrow, it might be of use to you! If not, feel free to pull the code and set it up for your own use. 
 
