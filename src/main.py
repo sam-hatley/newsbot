@@ -152,7 +152,7 @@ def create_post(access_token,
     
     # Post new articles to mastodon
     for index, post in enumerate(articles):
-        category = post['category']
+        category = post['category'] if post['category'] else ""
         title = post['title']
         url = post['url']
         print(category, title, url)

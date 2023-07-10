@@ -20,7 +20,7 @@ If you can't tell, it's beyond frustrating, and I frequently miss relatively imp
 
 You can make a bot.
 
-I've set up this  bot to run every fifteen minutes. It scrapes the first page of [Harrow Online](https://harrowonline.org/), pulls out the top five headlines, then 'toots' those headlines. It's written in Python, uses [mastodon.py](https://mastodonpy.readthedocs.io/en/stable/) to interact with the Mastodon API, and [BeautifulSoup](https://beautiful-soup-4.readthedocs.io/en/latest/) to scrape the headlines.
+I've set up this  bot to run every fifteen minutes. It scrapes the first page of [Harrow Online](https://harrowonline.org/), pulls out the top five headlines, checks to see if the URLs have already been posted, then 'toots' those headlines. It's written in Python, uses [mastodon.py](https://mastodonpy.readthedocs.io/en/stable/) to interact with the Mastodon API, and [BeautifulSoup](https://beautiful-soup-4.readthedocs.io/en/latest/) to scrape the headlines.
 
 The infrastructure is managed by Terraform and sits within Google Cloud Platform: the code is sent into a Google Cloud Function, which is triggered by a Google Cloud Scheduler Pub/Sub event every fifteen minutes. 
 
