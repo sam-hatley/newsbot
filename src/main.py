@@ -136,10 +136,10 @@ def filter_articles(user_id,
 
 
 # Poster
-def harrow_online_post(access_token,
-                       articles,
-                       api_base_url='https://mastodon.social'
-                       ) -> list[dict]:
+def create_post(access_token,
+                articles,
+                api_base_url='https://mastodon.social'
+                ) -> list[dict]:
     """
     Takes a list of dictionaries of articles with the keys 'category', 'title', and 'url', and
     posts them to mastodon. Returns articles posted.
@@ -191,8 +191,8 @@ def main(data=None, context=None, **kwargs) -> None:
                                 articles=articles)
     
     if new_posts:
-        harrow_online_post(access_token=access_token,
-                           articles=new_posts)
+        create_post(access_token=access_token,
+                    articles=new_posts)
     
 
 if __name__ == "__main__":
