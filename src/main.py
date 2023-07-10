@@ -152,14 +152,18 @@ def create_post(access_token,
     
     # Post new articles to mastodon
     for index, post in enumerate(articles):
-        category = post['category'] if post['category'] else ""
+        if post['category']:
+            category = post['category'].replace(" ", "")
+        else:
+            category = "News"
         title = post['title']
         url = post['url']
+
         print(category, title, url)
         
         Mastodon.status_post(
             mastodon,
-            status=f"""{category.upper()}\n{title}\n{url}"""
+            status=f"""{title}\n{url}\n#Harrow #{category}"""
         )
         
         # Rate limiting
