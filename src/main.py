@@ -159,6 +159,14 @@ def create_post(access_token,
         title = post['title']
         url = post['url']
 
+        # Ensure message length is within limit
+        LIMIT = 500
+        
+        # URLs are always counted as 23 characters, plus add'l hashtags
+        if (len(category) + len(title) + 34) > LIMIT:
+            n = LIMIT - 37 - len(category)
+            title = title[:n] + "..."
+
         print(category, title, url)
         
         Mastodon.status_post(
