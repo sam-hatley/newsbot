@@ -178,6 +178,8 @@ def create_post(access_token,
             "Watford",
             "Northolt",
             "Barnet",
+            "Brent",
+            "Hayes",
         ]
         
         find_location = lambda x: \
