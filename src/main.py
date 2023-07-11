@@ -126,8 +126,8 @@ def filter_articles(user_id,
         for tag in tags:
             if tag.get('class') is None:
                 link = tag.get('href')
-        if link:
-            prior_links.append(link.attrs['href'])
+                prior_links.append(link)
+            
     
     # Return new articles
     new_posts = []
