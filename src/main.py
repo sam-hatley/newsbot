@@ -158,20 +158,48 @@ def create_post(access_token,
             category = "News"
         title = post['title']
         url = post['url']
+        
+        # Get the location
+        locations = [
+            "Pinner",
+            "Edgware",
+            "Harrow Weald",
+            "Wembley",
+            "Wembley Park",
+            "Stanmore",
+            "Wealdstone",
+            "Rayners Lane",
+            "North Harrow",
+            "South Harrow",
+            "Hatch End",
+            "Watford",
+            "Northolt",
+            "Barnet",
+        ]
+        
+        find_location = lambda x: \
+            next((location for location in locations if location in x), "Harrow")
+        
+        location = find_location(title).replace(" ", "")
 
         # Ensure message length is within limit
         LIMIT = 500
         
-        # URLs are always counted as 23 characters, plus add'l hashtags
-        if (len(category) + len(title) + 34) > LIMIT:
-            n = LIMIT - 37 - len(category)
+        # URLs are always counted as 23 characters, plus add'l chars
+        status = f"{title}\n#{location} #{category}\n{url}"
+        post_length = len(status) - len(url) + 23
+
+        if post_length > LIMIT:
+            n = LIMIT - post_length + len(title) - 3
             title = title[:n] + "..."
+            status = f"{title}\n#{location} #{category}\n{url}"
+            print(len(status) - len(url) + 23)
 
         print(category, title, url)
         
         Mastodon.status_post(
             mastodon,
-            status=f"""{title}\n{url}\n#Harrow #{category}"""
+            status=status
         )
         
         # Rate limiting
