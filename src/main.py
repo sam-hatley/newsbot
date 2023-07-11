@@ -122,7 +122,10 @@ def filter_articles(user_id,
 
     for status in statuses:
         soup = bs(status.content, "html.parser")
-        link = soup.find('a')
+        tags = soup.find_all('a')
+        for tag in tags:
+            if tag.get('class') is None:
+                link = tag.get('href')
         if link:
             prior_links.append(link.attrs['href'])
     
@@ -186,13 +189,13 @@ def create_post(access_token,
         LIMIT = 500
         
         # URLs are always counted as 23 characters, plus add'l chars
-        status = f"{title}\n#{location} #{category}\n{url}"
+        status = f"{title}\n#{location} #{category} #Harrow\n{url}"
         post_length = len(status) - len(url) + 23
 
         if post_length > LIMIT:
             n = LIMIT - post_length + len(title) - 3
             title = title[:n] + "..."
-            status = f"{title}\n#{location} #{category}\n{url}"
+            status = f"{title}\n#{location} #{category} #Harrow\n{url}"
             print(len(status) - len(url) + 23)
 
         print(category, title, url)
