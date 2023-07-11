@@ -189,7 +189,12 @@ def create_post(access_token,
         LIMIT = 500
         
         # URLs are always counted as 23 characters, plus add'l chars
-        status = f"{title}\n#{location} #{category} #Harrow\n{url}"
+        if location == "Harrow":
+            hashtags = f"#{location} #{category}"
+        else:
+            hashtags = f"#{location} #Harrow #{category}"
+            
+        status = f"{title}\n{hashtags}\n{url}"
         post_length = len(status) - len(url) + 23
 
         if post_length > LIMIT:
